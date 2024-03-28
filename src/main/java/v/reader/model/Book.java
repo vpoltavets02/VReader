@@ -1,5 +1,6 @@
 package v.reader.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -25,14 +26,23 @@ public class Book {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne
+    @JsonManagedReference
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
 
-    @Max(500)
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
+    @Max(1500)
     @NotBlank
     @Column(name = "description")
     private String description;
+
+    @Column(name = "number_of_pages")
+    private Integer numberOfPager;
 
     @Column(name = "year_of_writing")
     private Integer yearOfWriting;

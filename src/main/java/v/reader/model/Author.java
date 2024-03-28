@@ -1,5 +1,6 @@
 package v.reader.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -32,6 +33,7 @@ public class Author {
     @Column(name = "biography")
     private String biography;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "author")
     private List<Book> books;
 }
